@@ -1,0 +1,8 @@
+PUTTY per creare connessione e lanciare comandi 
+login PI passw raspberry
+FILEZILLA per copiare files 
+Cartella FB
+pi@raspberrypi ~/FB $ sudo python FB_001_helloworld.py
+**********
+
+
