@@ -1,12 +1,12 @@
 #!/usr/bin/python
-variant
 #+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #|R|a|s|p|b|e|r|r|y|P|i|-|S|p|y|.|c|o|.|u|k|
 #+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #
 # Project URL :
 # http://www.raspberrypi-spy.co.uk/?p=1862
-#v03 2016-09-18 .. aggiunto data in filename e upload in dropbox 
+#2016-09-18 .. aggiunto data in filename e upload in dropbox 
+#v1 loop
 
 import os
 import time
@@ -19,30 +19,31 @@ print "Starting photo"
 
 timestamp = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d_%H%M%S') 
 
-photo_counter = photo_counter + 1
-filename = 'photo_' + str(timestamp) + '.jpg'
-#filename = 'photo_' + str(photo_counter) + '.jpg'
+while (photo_counter < 9):
 
-print filename
-makeaphoto = 'raspistill -o ' + filename + ' -w 640 -h 480 -t 1';
-pid = subprocess.call(makeaphoto, shell=True) 
-#subprocess.call(makeaphoto, shell=True) 
-print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
-print ("foto effettuata")  
+	photo_counter = photo_counter + 1
+	filename = 'photo_' + str(timestamp) + '.jpg'
+	#filename = 'photo_' + str(photo_counter) + '.jpg'
 
-#upload in dropbox 
-print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
-#filename2 = "photo_20160918_140444.jpg";
-print('Uploading')
-Uploader = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh ";
-SourcePath = "/home/pi/FB/";
-UploadPath = "/RPI_test2/"; 
-ScriptUpload = Uploader+"upload "+SourcePath+filename+" "+UploadPath;
-print (ScriptUpload)
-subprocess.call(ScriptUpload, shell=True);
+	print filename
+	makeaphoto = 'raspistill -o ' + filename + ' -w 640 -h 480 -t 1';
+	pid = subprocess.call(makeaphoto, shell=True) 
+	#subprocess.call(makeaphoto, shell=True) 
+	print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
+	print ("foto effettuata")  
+
+	#upload in dropbox 
+	print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
+	#filename2 = "photo_20160918_140444.jpg";
+	print('Uploading')
+	Uploader = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh "
+	SourcePath = "/home/pi/FB/"
+	UploadPath = "/RPI_test2/"
+	ScriptUpload = Uploader+"upload "+SourcePath+filename+" "+UploadPath
+	print (ScriptUpload)
+	subprocess.call(ScriptUpload, shell=True)
 
 #os.system("/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload FB_Log.txt /RPI_test2/");
 
 print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
 print('END')
-
