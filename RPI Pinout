@@ -1,5 +1,8 @@
 
 pi@raspberrypi ~/wiringPi $ gpio readall
+
+Pin1 il piu vicino alla memory card (P1) 
+
  +-----+-----+---------+------+---+-Model B1-+---+------+---------+-----+-----+
  | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
  +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
