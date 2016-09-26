@@ -1,0 +1,11 @@
+LINUX COMMANDS 
+==========================
+remove directory 
+sudo rm -rf wiringPi/
+
+
+FInd file 
+find -iname nomefil*
+
+
+
