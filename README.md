@@ -13,6 +13,10 @@ http://webiopi.trouch.com/
 RPI Music Box 
 http://www.pimusicbox.com/
 
+Raspberry Pi as low-cost HD surveillance camera
+http://www.codeproject.com/Articles/665518/Raspberry-Pi-as-low-cost-HD-surveillance-camera
+-------------------------------------
+
 ** ARDUINO **************************************
 
 ARDUINO Graphic LCD Hookup Guide
