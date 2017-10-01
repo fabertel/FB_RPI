@@ -7,8 +7,10 @@
 #	added library con visualizzazione per sleep 
 #	removed photo from PI memory 
 #	added stand and rotated photo
-#v1.6 - 2017/10/01
+#v1.7 - 2017/10/01
 #	added image comparison
+#	removed foto from local 
+#	email at startup 
 #os.system("/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload FB_Log.txt /RPI_test2/");
 #takes 100 foto una ogni 5minuti : 5 ore 
 
@@ -16,7 +18,8 @@ import os
 import time
 import subprocess
 import datetime
-import FB_LIB_01_Sleep_counter_pregress as sl2
+import FB_LIB_01_EEMAIL as fb_eml
+
 import numpy as np
 from PIL import Image, ImageChops
 
@@ -25,12 +28,14 @@ previousphotoname = "comparison.png"
 image.save(previousphotoname, "PNG")
 previousphoto = Image.open("comparison.png").convert('L')
 
-vversion = 'v16'
+vversion = 'v17'
+fb_eml.EEMAIL('RPI Connected','Monitoring ON')
 photo_counter = 0    # Photo counter
+photo_new_counter = 0
 print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
 print "Starting photo" + vversion
 
-while (photo_counter < 100):
+while (photo_counter < 1000):
 
 	timestamp = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d_%H%M%S') 
 	photo_counter = photo_counter + 1
@@ -45,7 +50,8 @@ while (photo_counter < 100):
 
 	if diffdata.sum()>3000000: 
 		score = 'NEW '
-		print(str(photo_counter) + '-----' + score + str(diffdata.sum()) + str(timestamp))
+		photo_new_counter = photo_new_counter +1 
+		print(str(photo_counter) + '---' + str(photo_new_counter) + '---' + score + str(diffdata.sum()) + '---' + str(timestamp))
 		print 'Uploading' + str(photo_counter) + '  ' + filename
 
 		Uploader = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh "
@@ -54,18 +60,14 @@ while (photo_counter < 100):
 		ScriptUpload = Uploader+"upload "+SourcePath+filename+" "+UploadPath
 		print (ScriptUpload)
 		subprocess.call(ScriptUpload, shell=True)
+		os.remove(previousphotoname)
 		previousphotoname=filename
 	else:
 		score = 'OLD '
-		print(str(photo_counter) + '-----' + score + str(diffdata.sum()) + str(timestamp))
+		print(str(photo_counter) + '---' + str(photo_new_counter) + '---' + score + str(diffdata.sum()) + '---' + str(timestamp))
 		os.remove(filename)
-		
 
-	
-	#os.remove(filename) 
-	#print '3 Deleted : ' + str(photo_counter) + '  ' + filename
 	time.sleep(2)
-	#sl2.sleep2(10)
 
 print('+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+')
 print('END')
